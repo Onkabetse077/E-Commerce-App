@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+  font-family: sans-serif;
+}
+.container{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+/*Seller SignUp*/
+.sign-up-form{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: auto;
+}
+.sign-up-input{
+  height: 35px;
+  margin-bottom: 20px;
+  border: 1px solid orange;
+  padding-left: 15px;
+  color: orange;
+}
+.sign-up-btn{
+  height: 35px;
+  border: 1px solid orange;
+  color: orange;
+  cursor: pointer;
+}
+
