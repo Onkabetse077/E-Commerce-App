@@ -8,6 +8,12 @@
       "name": "John Seller",
       "email": "abc@gmail.com",
       "password": "abc@1234"
+    },
+    {
+      "id": "906c",
+      "name": "k Seller",
+      "email": "abc@gmail.com",
+      "password": "abc@1234"
     }
   ]
 }
