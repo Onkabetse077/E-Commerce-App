@@ -58,3 +58,10 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 # E-Commerce-App
+
+
+Fake JSON API using typicode Repo: https://github.com/typicode/json-server
+
+Run the following commands in Terminal:
+1. npm install -g json-server
+2. json-server --watch db.json or npx json-server db.json

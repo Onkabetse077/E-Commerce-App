@@ -1,5 +1,5 @@
 {
-  "seller": [
+  "sellers": [
     {
       "id": "1458"
     },
@@ -8,6 +8,48 @@
       "name": "John Seller",
       "email": "abc@gmail.com",
       "password": "abc@1234"
+    },
+    {
+      "id": "906c",
+      "name": "k Seller",
+      "email": "abc@gmail.com",
+      "password": "abc@1234"
+    },
+    {
+      "id": "8c97",
+      "name": "k Seller",
+      "email": "abc@gmail.com",
+      "password": "abc@1234"
+    },
+    {
+      "id": "5ff2",
+      "name": "k Seller",
+      "email": "abc@gmail.com",
+      "password": "abc@1234"
+    },
+    {
+      "id": "9a98",
+      "name": "k Seller",
+      "email": "abc@gmail.com",
+      "password": "abc@1234"
+    },
+    {
+      "id": "93ca",
+      "name": "k Seller",
+      "email": "abc@gmail.com",
+      "password": "abc@1234"
+    },
+    {
+      "id": "ad28",
+      "name": "w",
+      "password": "w",
+      "email": "q"
+    },
+    {
+      "id": "80b6",
+      "name": "ww",
+      "password": "ww",
+      "email": "w"
     }
   ]
 }
