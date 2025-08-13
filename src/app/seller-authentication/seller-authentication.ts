@@ -1,32 +1,31 @@
 import { Component } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import { SellerServices } from '../services/seller-services';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {signUp} from '../DataType';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
-
-
+import { SellerServices } from '../services/seller-services';
+import { signUp } from '../DataType';
 
 @Component({
   selector: 'app-seller-authentication',
+  standalone: true, // ✅ Required for standalone components
   imports: [
-    FormsModule,HttpClientModule
+    FormsModule,
+    HttpClientModule // ✅ Import here for HttpClient to work
   ],
   templateUrl: './seller-authentication.html',
-  styleUrl: './seller-authentication.css'
+  styleUrls: ['./seller-authentication.css']
 })
 export class SellerAuthentication {
+  constructor(private seller: SellerServices, private router: Router) {}
 
-  constructor(private seller: SellerServices,private router: Router) { }
-
-  signUp(data:signUp):void{
-   this.seller.userSignUp(data).subscribe((result:signUp)=>{
+  signUp(data: signUp): void {
+    this.seller.userSignUp(data).subscribe((result: signUp) => {
       console.warn(result);
-      if(result){
+      if (result) {
         this.router.navigate(['/seller-home']);
       }
-   });
-    console.warn("User signed up");
+    });
+    console.warn('User signed up');
   }
 }

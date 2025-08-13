@@ -1,15 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { signUp } from '../DataType';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // ✅ Makes the service available app-wide
 })
 export class SellerServices {
- constructor(private http:HttpClient){}
-  userSignUp(data:signUp):any{
-    console.warn("User signed up");
-   return this.http.post('http://localhost:3000/seller', data);
+  constructor(private http: HttpClient) {}
+
+  userSignUp(data: signUp): Observable<signUp> {
+    return this.http.post<signUp>('http://localhost:3000/sellers', data);
   }
 }
