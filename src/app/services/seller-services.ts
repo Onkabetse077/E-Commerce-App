@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { signUp } from '../DataType';
+import {Login} from '../DataType';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -35,6 +36,22 @@ export class SellerServices {
       })
     );
   }
+
+  userLogin(data: Login): Observable<HttpResponse<Login>> {
+    return this.http.post<Login>(
+      'http://localhost:3000/sellers/login',
+      data,
+      { observe: 'response' }
+    ).pipe(
+      tap(result => {
+        if (result && this.isBrowser) {
+          localStorage.setItem('seller', JSON.stringify(result.body));
+          this.isSellerLoggedIn.next(true);
+        }
+      })
+    );
+  }
+
 
   reloadSeller() {
     if (this.isBrowser) {
