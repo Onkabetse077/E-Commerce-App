@@ -1,16 +1,25 @@
 {
   "sellers": [
     {
-      "id": "3018",
-      "name": "abc",
-      "password": "abc",
-      "email": "abc"
+      "id": "1458"
     },
     {
-      "id": "65fd",
-      "name": "",
-      "password": "",
-      "email": ""
+      "id": "3abe",
+      "name": "John Seller",
+      "email": "abc@gmail.com",
+      "password": "abc@1234"
+    },
+    {
+      "id": "8296",
+      "name": "abc",
+      "email": "abc@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "c5bb",
+      "name": "a",
+      "email": "a",
+      "password": "a"
     }
   ]
 }

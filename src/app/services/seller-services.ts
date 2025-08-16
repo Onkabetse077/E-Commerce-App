@@ -2,8 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { signUp } from '../DataType';
-import {Login} from '../DataType';
+import { signUp, Login } from '../DataType';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -12,6 +11,7 @@ import { Router } from '@angular/router';
 export class SellerServices {
   isSellerLoggedIn = new BehaviorSubject<boolean>(false);
   private isBrowser: boolean;
+  private apiUrl = 'http://localhost:3000/sellers'; // ✅ match db.json
 
   constructor(
     private http: HttpClient,
@@ -24,34 +24,34 @@ export class SellerServices {
 
   userSignUp(data: signUp): Observable<HttpResponse<signUp>> {
     return this.http.post<signUp>(
-      'http://localhost:3000/sellers',
+      this.apiUrl,
       data,
       { observe: 'response' }
     ).pipe(
       tap(result => {
-        if (result && this.isBrowser) {
-          localStorage.setItem('seller', JSON.stringify(result.body));
+        if (result && this.isBrowser && result.body) {
+          localStorage.setItem('sellers', JSON.stringify(result.body));
           this.isSellerLoggedIn.next(true);
         }
       })
     );
   }
 
-  userLogin(data: Login): Observable<HttpResponse<Login>> {
-    return this.http.post<Login>(
-      'http://localhost:3000/sellers/login',
-      data,
+  userLogin(data: Login): Observable<HttpResponse<Login[]>> {
+    return this.http.get<Login[]>(
+      `${this.apiUrl}?email=${data.email}&password=${data.password}`,
       { observe: 'response' }
     ).pipe(
       tap(result => {
-        if (result && this.isBrowser) {
-          localStorage.setItem('seller', JSON.stringify(result.body));
+        if (result.body && result.body.length > 0 && this.isBrowser) {
+          localStorage.setItem('sellers', JSON.stringify(result.body[0])); // store first match
           this.isSellerLoggedIn.next(true);
+        } else {
+          this.isSellerLoggedIn.next(false); // ✅ invalid login
         }
       })
     );
   }
-
 
   reloadSeller() {
     if (this.isBrowser) {
@@ -65,7 +65,7 @@ export class SellerServices {
 
   logout() {
     if (this.isBrowser) {
-      localStorage.removeItem('seller');
+      localStorage.removeItem('sellers');
       this.isSellerLoggedIn.next(false);
       this.router.navigate(['/seller-authentication']);
     }

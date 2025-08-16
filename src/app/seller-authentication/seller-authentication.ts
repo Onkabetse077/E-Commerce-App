@@ -32,14 +32,18 @@ export class SellerAuthentication {
     });
   }
   login(data: Login): void {
-    this.seller.userLogin(data).subscribe({
-      next: (result) => {
-        if (result.body) this.router.navigate(['/seller-home']);
-      },
-      error: (err) => {
-        console.error('Login failed:', err);
-        alert('Sign-up failed. Please try again.');
+  this.seller.userLogin(data).subscribe({
+    next: (result) => {
+      if (result.body && result.body.length > 0) {
+        this.router.navigate(['/seller-home']);
+      } else {
+        alert('Invalid email or password'); // ❌ Wrong credentials
       }
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Login failed:', err);
+      alert('Login failed. Please try again.');
+    }
+  });
+}
 }
