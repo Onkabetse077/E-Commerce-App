@@ -1,33 +1,37 @@
-import { Component } from '@angular/core';
-import {RouterLink} from '@angular/router';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import {Router, Event, NavigationEnd} from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [
-    RouterLink
-  ],
+  standalone: true,
+  imports: [RouterLink, NgIf, NgSwitch, NgSwitchCase],
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrls: ['./header.css']
 })
-export class Header {
-  menuType= 'Default';
-constructor(private route:Router) {
-}
-ngOnInit() {
-  this.route.events.subscribe((data:any) => {
-    if (data.url) {
-      console.warn(data.url);
-      if(localStorage.getItem('seller') && data.url.includes('seller')){
-        console.log('This is Seller Area');
-        this.menuType='Seller';
-      }else{
-        console.warn("Outside Seller Area");
-        this.menuType='Default';
+export class Header implements OnInit {
+  menuType:string ='default';
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const isSellerLoggedIn = localStorage.getItem('seller');
+
+        if (isSellerLoggedIn && event.url.startsWith('/seller')) {
+          this.menuType = 'seller';
+        } else {
+          this.menuType = 'default';
+        }
       }
-    }
+    });
+  }
 
-  })
+  logout() {
+    localStorage.removeItem('seller');
+    this.menuType = 'default';
+    this.router.navigate(['/']); // back to Home after logout
+  }
 }
-}
-
